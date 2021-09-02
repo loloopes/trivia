@@ -16,6 +16,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.renderInputs = this.renderInputs.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -28,6 +29,34 @@ class Login extends React.Component {
     getToken(name, email);
   }
 
+  renderInputs() {
+    const { name, email } = this.state;
+    return (
+      <div>
+        <label htmlFor="input-player-name">
+          Name:
+          <input
+            type="text"
+            name="name"
+            value={ name }
+            data-testid="input-player-name"
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="input-player-name">
+          Email:
+          <input
+            type="text"
+            name="email"
+            value={ email }
+            data-testid="input-gravatar-email"
+            onChange={ this.handleChange }
+          />
+        </label>
+      </div>
+    );
+  }
+
   render() {
     const { name, email } = this.state;
     let handleButton = true;
@@ -37,26 +66,7 @@ class Login extends React.Component {
     return (
       <main>
         <form action="">
-          <label htmlFor="input-player-name">
-            Name:
-            <input
-              type="text"
-              name="name"
-              value={ name }
-              data-testid="input-player-name"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="input-player-name">
-            Email:
-            <input
-              type="text"
-              name="email"
-              value={ email }
-              data-testid="input-gravatar-email"
-              onChange={ this.handleChange }
-            />
-          </label>
+          {this.renderInputs()}
           <Link to="/gameplay">
             <button
               type="button"
@@ -65,6 +75,14 @@ class Login extends React.Component {
               onClick={ this.handleClick }
             >
               Jogar
+            </button>
+          </Link>
+          <Link to="/settings">
+            <button
+              type="button"
+              data-testid="btn-settings"
+            >
+              Configurações
             </button>
           </Link>
         </form>
