@@ -1,5 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import getTokenThunk from '../redux/actions';
 
 class Login extends React.Component {
   constructor() {
@@ -11,44 +15,74 @@ class Login extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.renderInputs = this.renderInputs.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({ [name]: value });
   }
 
+  handleClick() {
+    const { getToken } = this.props;
+    const { name, email } = this.state;
+    getToken(name, email);
+  }
+
+  renderInputs() {
+    const { name, email } = this.state;
+    return (
+      <div>
+        <label htmlFor="input-player-name">
+          Name:
+          <input
+            type="text"
+            name="name"
+            value={ name }
+            data-testid="input-player-name"
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="input-player-name">
+          Email:
+          <input
+            type="text"
+            name="email"
+            value={ email }
+            data-testid="input-gravatar-email"
+            onChange={ this.handleChange }
+          />
+        </label>
+      </div>
+    );
+  }
+
   render() {
     const { name, email } = this.state;
-    let enableButton = true;
+    let handleButton = true;
     if (name && email) {
-      enableButton = false;
+      handleButton = false;
     }
     return (
       <main>
         <form action="">
-          <label htmlFor="input-player-name">
-            Name:
-            <input
-              type="text"
-              name="name"
-              value={ name }
-              data-testid="input-player-name"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="input-player-name">
-            Email:
-            <input
-              type="text"
-              name="email"
-              value={ email }
-              data-testid="input-gravatar-email"
-              onChange={ this.handleChange }
-            />
-          </label>
+          {this.renderInputs()}
           <Link to="/gameplay">
-            <button type="button" data-testid="btn-play" disabled={ enableButton }>
+            <button
+              type="button"
+              data-testid="btn-play"
+              disabled={ handleButton }
+              onClick={ this.handleClick }
+            >
               Jogar
+            </button>
+          </Link>
+          <Link to="/settings">
+            <button
+              type="button"
+              data-testid="btn-settings"
+            >
+              Configurações
             </button>
           </Link>
         </form>
@@ -57,4 +91,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  getToken: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getToken: (name, email) => dispatch(getTokenThunk(name, email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
