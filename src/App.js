@@ -1,4 +1,10 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+
+import Login from './pages/Login';
+import GameScreen from './pages/GameScreen';
+import SettingsScreen from './pages/SettingsScreen';
+
 import logo from './trivia.png';
 import './App.css';
 
@@ -11,6 +17,11 @@ export default function App() {
           SUA VEZ
         </p>
       </header>
+      <Switch>
+        <Route exact path="/" component={ Login } />
+        <Route exact path="/gameplay" component={ GameScreen } />
+        <Route exact path="/settings" component={ SettingsScreen } />
+      </Switch>
     </div>
   );
 }
