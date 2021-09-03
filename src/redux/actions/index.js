@@ -1,5 +1,6 @@
 export const GET_TOKEN = 'GET_TOKEN';
 export const GET_QUESTIONS = 'GET_QUESTIONS';
+export const SET_SCORE = 'SET_SCORE';
 
 const getToken = (name, email, token) => ({
   type: GET_TOKEN,
@@ -7,6 +8,14 @@ const getToken = (name, email, token) => ({
     name,
     email,
     token,
+  },
+});
+
+export const setScore = (timer, difficulty) => ({
+  type: SET_SCORE,
+  payload: {
+    timer,
+    difficulty,
   },
 });
 

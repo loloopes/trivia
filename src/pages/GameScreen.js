@@ -7,18 +7,25 @@ import BtnWrong from '../components/BtnWrong';
 import Header from '../components/Header';
 import Timer from '../components/Timer';
 
-import { getQuestionsThunk } from '../redux/actions';
+import { setScore, getQuestionsThunk } from '../redux/actions';
 
 class GameScreen extends React.Component {
   constructor() {
     super();
     this.state = {
       timer: 30,
+      player: {
+        name: '',
+        assertions: '',
+        score: 0,
+        gravatarEmail: '',
+      },
     };
     this.setTimer = this.setTimer.bind(this);
     this.checkUpdate = this.checkUpdate.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.score = this.score.bind(this);
+    this.setLocalStorage = this.setLocalStorage.bind(this);
   }
 
   componentDidMount() {
@@ -27,12 +34,9 @@ class GameScreen extends React.Component {
   }
 
   componentDidUpdate() {
+    // const { score } = this.props;
     this.checkUpdate();
-  }
-
-  score(payload) {
-    const { setScoreAction } = this.props;
-    setScoreAction(payload);
+    this.setLocalStorage();
   }
 
   setTimer() {
@@ -44,6 +48,21 @@ class GameScreen extends React.Component {
     }, ONE_SECOND);
   }
 
+  setLocalStorage() {
+    const { score, name, gravatarEmail, assertions } = this.props;
+    // const { player } = this.state;
+    // this.setState({
+    const player = {
+      player: {
+        name,
+        assertions,
+        gravatarEmail,
+        score,
+      },
+    };
+    localStorage.setItem('state', JSON.stringify(player));
+  }
+
   checkUpdate() {
     const { timer } = this.state;
     if (timer === 0) {
@@ -51,19 +70,29 @@ class GameScreen extends React.Component {
     }
   }
 
+  score(timer, difficulty) {
+    const { setScoreAction } = this.props;
+    setScoreAction(timer, difficulty);
+  }
+
   handleClick(event) {
+    const { timer } = this.state;
+    const { questions } = this.props;
     if (event.target.name === 'correct') {
       event.target.style.border = '3px solid rgb(6, 240, 15)';
       document.querySelectorAll('.btn-wrong').forEach((btn) => {
         btn.style.border = '3px solid rgb(255, 0, 0)';
       });
-      this.score('INFORMACOES PARA O REDUCER');
+      clearInterval(this.interval);
+      this.score(timer, questions[0].difficulty);
     } else if (event.target.name === 'wrong') {
+      clearInterval(this.interval);
       document.querySelectorAll('.btn-wrong').forEach((btn) => {
         btn.style.border = '3px solid rgb(255, 0, 0)';
       });
       document.querySelector('.btn-correct').style.border = '3px solid rgb(6, 240, 15)';
     }
+    this.setLocalStorage();
   }
 
   renderQuestions() {
@@ -109,13 +138,18 @@ GameScreen.propTypes = {
 const mapStateToProps = (state) => ({
   token: state.login.token,
   questions: state.questionsReducer.questions,
+  gravatarEmail: state.login.gravatarEmail,
+  name: state.login.name,
+  score: state.gameInfo.score,
+  assertions: state.gameInfo.assertions,
 });
+
 const mapDispatchToProps = (dispatch) => ({
   fetchQuestions: (token) => {
     dispatch(getQuestionsThunk(token));
   },
-  setScoreAction: (payload) => {
-    dispatch(setScore(payload));
+  setScoreAction: (timer, difficulty) => {
+    dispatch(setScore(timer, difficulty));
   },
 });
 
