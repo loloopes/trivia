@@ -4,11 +4,6 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   render() {
     const { gravatarEmail, name, score, assertions } = this.props;
 
