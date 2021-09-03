@@ -23,4 +23,6 @@ export default class BtnWrong extends Component {
 BtnWrong.propTypes = {
   wrong: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
 };

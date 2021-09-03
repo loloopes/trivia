@@ -22,4 +22,6 @@ export default class BtnCorrect extends Component {
 
 BtnCorrect.propTypes = {
   correct: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
 };
