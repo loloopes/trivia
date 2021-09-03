@@ -12,7 +12,7 @@ class GameScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      loading: true,
+      // loading: true,
     };
   }
 
@@ -24,7 +24,7 @@ class GameScreen extends React.Component {
     const { token, fetchQuestions } = this.props;
     fetchQuestions(token);
     this.setState({
-      loading: false,
+      // loading: false,
     });
   }
 
