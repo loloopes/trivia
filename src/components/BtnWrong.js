@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 
 export default class BtnWrong extends Component {
   render() {
-    const { wrong, index } = this.props;
+    const { wrong, index, disable } = this.props;
     return (
       <div>
-        <button type="button" data-testid={ `wrong-answer-${index}` }>
+        <button
+          type="button"
+          disabled={ disable }
+          data-testid={ `wrong-answer-${index}` }
+        >
           {wrong}
         </button>
       </div>
@@ -17,4 +21,5 @@ export default class BtnWrong extends Component {
 BtnWrong.propTypes = {
   wrong: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  disable: PropTypes.bool.isRequired,
 };
