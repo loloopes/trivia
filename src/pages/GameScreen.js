@@ -6,6 +6,7 @@ import BtnCorrect from '../components/BtnCorrect';
 import BtnWrong from '../components/BtnWrong';
 import Header from '../components/Header';
 import Timer from '../components/Timer';
+import NextQuestionBtn from '../components/NextQuestionBtn';
 
 import { getQuestionsThunk } from '../redux/actions';
 
@@ -14,6 +15,7 @@ class GameScreen extends React.Component {
     super();
     this.state = {
       timer: 30,
+      answered: false,
     };
     this.setTimer = this.setTimer.bind(this);
     this.checkUpdate = this.checkUpdate.bind(this);
@@ -57,6 +59,9 @@ class GameScreen extends React.Component {
       });
       document.querySelector('.btn-correct').style.border = '3px solid rgb(6, 240, 15)';
     }
+    this.setState({
+      answered: true,
+    });
   }
 
   renderQuestions() {
@@ -66,7 +71,7 @@ class GameScreen extends React.Component {
 
   render() {
     const { questions } = this.props;
-    const { timer } = this.state;
+    const { timer, answered } = this.state;
     if (questions.length === 0) {
       return <span>Carregando...</span>;
     }
@@ -90,6 +95,7 @@ class GameScreen extends React.Component {
           index={ index }
           disable={ timer === 0 }
         />))}
+        {answered && <NextQuestionBtn />}
       </div>
     );
   }
