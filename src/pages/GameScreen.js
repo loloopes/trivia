@@ -1,18 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import BtnCorrect from '../components/BtnCorrect';
 import BtnWrong from '../components/BtnWrong';
 import Header from '../components/Header';
+
 import { getQuestionsThunk } from '../redux/actions';
+
 class GameScreen extends React.Component {
   componentDidMount() {
     this.renderQuestions();
   }
+
   renderQuestions() {
     const { token, fetchQuestions } = this.props;
     fetchQuestions(token);
   }
+
   render() {
     const { questions } = this.props;
     if (questions.length === 0) {
@@ -48,4 +53,5 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getQuestionsThunk(token));
   },
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);
