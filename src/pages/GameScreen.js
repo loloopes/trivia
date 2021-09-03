@@ -9,13 +9,6 @@ import Header from '../components/Header';
 import { getQuestionsThunk } from '../redux/actions';
 
 class GameScreen extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      loading: true,
-    };
-  }
-
   componentDidMount() {
     this.renderQuestions();
   }
@@ -23,23 +16,19 @@ class GameScreen extends React.Component {
   renderQuestions() {
     const { token, fetchQuestions } = this.props;
     fetchQuestions(token);
-    this.setState({
-      loading: false,
-    });
   }
 
   render() {
-    const { loading } = this.state;
     const { questions } = this.props;
-    console.log(questions);
-    if (loading) {
-      return <span>carregando</span>;
+    if (questions.length === 0) {
+      return <span>Carregando...</span>;
     }
+    console.log(questions[0]);
     return (
       <div>
         <Header />
-        <h1 data-testid="question-category">{ questions[0].category }</h1>
-        <p data-testid="question-text">{ questions[0].question }</p>
+        <h1 data-testid="question-category">{questions[0].category}</h1>
+        <p data-testid="question-text">{questions[0].question}</p>
         <BtnCorrect correct={ questions[0].correct_answer } />
         {questions[0].incorrect_answers.map((answer, index) => (<BtnWrong
           key={ index }
@@ -59,7 +48,7 @@ GameScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   token: state.login.token,
-  questions: state.questions.questions,
+  questions: state.questionsReducer.questions,
 });
 
 const mapDispatchToProps = (dispatch) => ({

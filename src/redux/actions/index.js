@@ -1,5 +1,6 @@
 export const GET_TOKEN = 'GET_TOKEN';
 export const GET_QUESTIONS = 'GET_QUESTIONS';
+
 const getToken = (name, email, token) => ({
   type: GET_TOKEN,
   payload: {
@@ -19,7 +20,6 @@ const getQuestions = (questions) => ({
 export const getQuestionsThunk = (token) => async (dispatch) => {
   const response = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
   const { results } = await response.json();
-  console.log(results);
   dispatch(getQuestions(results));
 };
 
