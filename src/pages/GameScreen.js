@@ -29,23 +29,23 @@ class GameScreen extends React.Component {
   }
 
   render() {
-    const { loading } = this.state;
-    if (loading) {
+    const { questions } = this.props;
+    // const { loading } = this.state;
+    if (questions.length === 0) {
       return <span>carregando</span>;
     }
-    const { questions } = this.props;
-    // console.log(questions);
+    console.log(questions[0]);
     return (
       <div>
         <Header />
-        <h1 data-testid="question-category">{ console.log(questions) }</h1>
-        <p data-testid="question-text">Teste1</p>
-        {/* <BtnCorrect correct={ questions[0].correct_answer } />
+        <h1 data-testid="question-category">{questions[0].category}</h1>
+        <p data-testid="question-text">{questions[0].question}</p>
+        <BtnCorrect correct={ questions[0].correct_answer } />
         {questions[0].incorrect_answers.map((answer, index) => (<BtnWrong
           key={ index }
           wrong={ answer }
           index={ index }
-        />))} */}
+        />))}
       </div>
     );
   }
@@ -59,7 +59,7 @@ GameScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   token: state.login.token,
-  questions: state.questions.questions,
+  questions: state.questionsReducer.questions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
