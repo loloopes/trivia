@@ -30,10 +30,11 @@ class GameScreen extends React.Component {
 
   render() {
     const { loading } = this.state;
+    const { questions } = this.props;
+    console.log(questions);
     if (loading) {
       return <span>carregando</span>;
     }
-    const { questions } = this.props;
     return (
       <div>
         <Header />
