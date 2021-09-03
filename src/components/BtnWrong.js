@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 
 export default class BtnWrong extends Component {
   render() {
-    const { wrong, index } = this.props;
+    const { wrong, index, name, onClick } = this.props;
     return (
       <div>
-        <button type="button" data-testid={ `wrong-answer-${index}` }>
+        <button
+          className="btn-wrong"
+          name={ name }
+          onClick={ onClick }
+          type="button"
+          data-testid={ `wrong-answer-${index}` }
+        >
           {wrong}
         </button>
       </div>
@@ -17,4 +23,6 @@ export default class BtnWrong extends Component {
 BtnWrong.propTypes = {
   wrong: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
 };
