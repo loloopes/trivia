@@ -3,10 +3,18 @@ import PropTypes from 'prop-types';
 
 export default class BtnCorrect extends Component {
   render() {
-    const { correct } = this.props;
+    const { correct, onClick, name } = this.props;
     return (
       <div>
-        <button type="button" data-testid="correct-answer">{ correct }</button>
+        <button
+          className="btn-correct"
+          onClick={ onClick }
+          type="button"
+          data-testid="correct-answer"
+          name={ name }
+        >
+          { correct }
+        </button>
       </div>
     );
   }

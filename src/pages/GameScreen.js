@@ -9,8 +9,27 @@ import Header from '../components/Header';
 import { getQuestionsThunk } from '../redux/actions';
 
 class GameScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   componentDidMount() {
     this.renderQuestions();
+  }
+
+  handleClick(event) {
+    if (event.target.name === 'correct') {
+      event.target.style.border = '3px solid rgb(6, 240, 15)';
+      document.querySelectorAll('.btn-wrong').forEach((btn) => {
+        btn.style.border = '3px solid rgb(255, 0, 0)';
+      });
+    } else if (event.target.name === 'wrong') {
+      document.querySelectorAll('.btn-wrong').forEach((btn) => {
+        btn.style.border = '3px solid rgb(255, 0, 0)';
+      });
+      document.querySelector('.btn-correct').style.border = '3px solid rgb(6, 240, 15)';
+    }
   }
 
   renderQuestions() {
@@ -29,8 +48,14 @@ class GameScreen extends React.Component {
         <Header />
         <h1 data-testid="question-category">{questions[0].category}</h1>
         <p data-testid="question-text">{questions[0].question}</p>
-        <BtnCorrect correct={ questions[0].correct_answer } />
+        <BtnCorrect
+          name="correct"
+          onClick={ this.handleClick }
+          correct={ questions[0].correct_answer }
+        />
         {questions[0].incorrect_answers.map((answer, index) => (<BtnWrong
+          name="wrong"
+          onClick={ this.handleClick }
           key={ index }
           wrong={ answer }
           index={ index }
