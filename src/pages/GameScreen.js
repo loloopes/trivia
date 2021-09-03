@@ -18,6 +18,7 @@ class GameScreen extends React.Component {
     this.setTimer = this.setTimer.bind(this);
     this.checkUpdate = this.checkUpdate.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.score = this.score.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +28,11 @@ class GameScreen extends React.Component {
 
   componentDidUpdate() {
     this.checkUpdate();
+  }
+
+  score(payload) {
+    const { setScoreAction } = this.props;
+    setScoreAction(payload);
   }
 
   setTimer() {
@@ -51,6 +57,7 @@ class GameScreen extends React.Component {
       document.querySelectorAll('.btn-wrong').forEach((btn) => {
         btn.style.border = '3px solid rgb(255, 0, 0)';
       });
+      this.score('INFORMACOES PARA O REDUCER');
     } else if (event.target.name === 'wrong') {
       document.querySelectorAll('.btn-wrong').forEach((btn) => {
         btn.style.border = '3px solid rgb(255, 0, 0)';
@@ -106,6 +113,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchQuestions: (token) => {
     dispatch(getQuestionsThunk(token));
+  },
+  setScoreAction: (payload) => {
+    dispatch(setScore(payload));
   },
 });
 
