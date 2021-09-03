@@ -29,4 +29,3 @@ cypress/videos/
 cypress/reports/
 
 package.json
-package-lock.json
