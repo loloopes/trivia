@@ -17,6 +17,7 @@ class GameScreen extends React.Component {
     };
     this.setTimer = this.setTimer.bind(this);
     this.checkUpdate = this.checkUpdate.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +45,20 @@ class GameScreen extends React.Component {
     }
   }
 
+  handleClick(event) {
+    if (event.target.name === 'correct') {
+      event.target.style.border = '3px solid rgb(6, 240, 15)';
+      document.querySelectorAll('.btn-wrong').forEach((btn) => {
+        btn.style.border = '3px solid rgb(255, 0, 0)';
+      });
+    } else if (event.target.name === 'wrong') {
+      document.querySelectorAll('.btn-wrong').forEach((btn) => {
+        btn.style.border = '3px solid rgb(255, 0, 0)';
+      });
+      document.querySelector('.btn-correct').style.border = '3px solid rgb(6, 240, 15)';
+    }
+  }
+
   renderQuestions() {
     const { token, fetchQuestions } = this.props;
     fetchQuestions(token);
@@ -64,8 +79,12 @@ class GameScreen extends React.Component {
         <BtnCorrect
           correct={ questions[0].correct_answer }
           disable={ timer === 0 }
+          onClick={ this.handleClick }
+          name="correct"
         />
         {questions[0].incorrect_answers.map((answer, index) => (<BtnWrong
+          name="wrong"
+          onClick={ this.handleClick }
           key={ index }
           wrong={ answer }
           index={ index }
