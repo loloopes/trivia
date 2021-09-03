@@ -14,13 +14,8 @@ class GameScreen extends React.Component {
     super();
     this.state = {
       timer: 30,
-      player: {
-        name: '',
-        assertions: '',
-        score: 0,
-        gravatarEmail: '',
-      },
     };
+
     this.setTimer = this.setTimer.bind(this);
     this.checkUpdate = this.checkUpdate.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -134,6 +129,12 @@ GameScreen.propTypes = {
   token: PropTypes.string.isRequired,
   fetchQuestions: PropTypes.func.isRequired,
   questions: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  gravatarEmail: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+  assertions: PropTypes.number.isRequired,
+  setScoreAction: PropTypes.func.isRequired,
+
 };
 const mapStateToProps = (state) => ({
   token: state.login.token,
