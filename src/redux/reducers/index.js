@@ -6,7 +6,7 @@ import gameplayReducer from './gameplayReducer';
 
 const rootReducer = combineReducers({
   login: loginReducer,
-  questions: questionsReducer,
+  questionsReducer,
   gameInfo: gameplayReducer,
 });
 
