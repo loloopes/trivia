@@ -19,7 +19,7 @@ const getQuestions = (questions) => ({
 export const getQuestionsThunk = (token) => async (dispatch) => {
   const response = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
   const { results } = await response.json();
-  console.log(results);
+  // console.log(results);
   dispatch(getQuestions(results));
 };
 

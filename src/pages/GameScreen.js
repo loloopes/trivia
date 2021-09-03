@@ -34,17 +34,18 @@ class GameScreen extends React.Component {
       return <span>carregando</span>;
     }
     const { questions } = this.props;
+    // console.log(questions);
     return (
       <div>
         <Header />
-        <h1 data-testid="question-category">{ questions[0].category }</h1>
-        <p data-testid="question-text">{ questions[0].question }</p>
-        <BtnCorrect correct={ questions[0].correct_answer } />
+        <h1 data-testid="question-category">{ console.log(questions) }</h1>
+        <p data-testid="question-text">Teste1</p>
+        {/* <BtnCorrect correct={ questions[0].correct_answer } />
         {questions[0].incorrect_answers.map((answer, index) => (<BtnWrong
           key={ index }
           wrong={ answer }
           index={ index }
-        />))}
+        />))} */}
       </div>
     );
   }

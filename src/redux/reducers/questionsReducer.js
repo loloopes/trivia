@@ -1,4 +1,4 @@
-=import { GET_QUESTIONS } from '../actions';
+import { GET_QUESTIONS } from '../actions';
 
 const INITIAL_STATE = {
   questions: [],
