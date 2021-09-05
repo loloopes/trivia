@@ -165,6 +165,7 @@ GameScreen.propTypes = {
   score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,
   setScoreAction: PropTypes.func.isRequired,
+  history: PropTypes.func.isRequired,
 
 };
 const mapStateToProps = (state) => ({

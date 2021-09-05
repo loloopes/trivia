@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class NextQuestionBtn extends React.Component {
   render() {
@@ -17,5 +18,10 @@ class NextQuestionBtn extends React.Component {
     );
   }
 }
+
+NextQuestionBtn.propTypes = {
+  feat1: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
+};
 
 export default NextQuestionBtn;
