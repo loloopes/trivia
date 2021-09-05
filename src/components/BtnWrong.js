@@ -7,7 +7,7 @@ export default class BtnWrong extends Component {
     return (
       <div>
         <button
-          className="btn-wrong"
+          className="btn-wrong btn"
           name={ name }
           onClick={ onClick }
           type="button"

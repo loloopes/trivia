@@ -2,8 +2,16 @@ import React from 'react';
 
 class NextQuestionBtn extends React.Component {
   render() {
+    const { feat1, reset } = this.props;
     return (
-      <button type="button" data-testid="btn-next">
+      <button
+        onClick={ () => {
+          feat1();
+          reset();
+        } }
+        type="button"
+        data-testid="btn-next"
+      >
         Próxima
       </button>
     );
