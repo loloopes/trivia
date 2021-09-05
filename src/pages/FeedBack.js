@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Header from '../components/Header';
+import Results from '../components/Results';
+import HeaderFback from '../components/HeaderFback';
 
 class FeedBack extends Component {
   render() {
@@ -9,7 +10,8 @@ class FeedBack extends Component {
     const feedBack = 3;
     return (
       <>
-        <Header />
+        <HeaderFback />
+        <Results />
         <p data-testid="feedback-text"> FeedbackScreen</p>
         { assertions < feedBack
           ? <p data-testid="feedback-text">Podia ser melhor...</p>
