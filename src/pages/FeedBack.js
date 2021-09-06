@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import Header from '../components/Header';
 
 export default class FeedBack extends Component {
   render() {
     return (
-      <p data-testid="feedback-text"> FeedbackScreen</p>
+      <>
+        <Header />
+        <p data-testid="feedback-text"> FeedbackScreen</p>
+      </>
     );
   }
 }

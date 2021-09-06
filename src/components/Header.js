@@ -21,11 +21,12 @@ class Header extends Component {
         >
           {`Player: ${name}`}
         </p>
-        <p
+        <span>Placar: </span>
+        <span
           data-testid="header-score"
         >
-          {`Score: ${score}`}
-        </p>
+          {score}
+        </span>
         <p>
           {`Assertions: ${assertions}`}
         </p>
