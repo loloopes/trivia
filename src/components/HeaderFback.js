@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 
-class Header extends Component {
+class HeaderFback extends Component {
   render() {
-    const { gravatarEmail, name, score, assertions } = this.props;
+    const { gravatarEmail, name, score } = this.props;
 
     const mailToken = md5(gravatarEmail).toString();
 
@@ -21,18 +21,8 @@ class Header extends Component {
         >
           {`Player: ${name}`}
         </p>
-        <span>Placar: </span>
-        <span
-          data-testid="header-score"
-        >
-          {score}
-        </span>
-        <br />
-        <span>Acertos: </span>
-        <span data-testid="feedback-total-question">
-          {assertions}
-        </span>
-
+        <span>Header Score:</span>
+        <span data-testid="header-score">{score}</span>
       </header>
     );
   }
@@ -40,19 +30,17 @@ class Header extends Component {
 
 const mapStateToProps = ({
   login: { gravatarEmail, name },
-  gameInfo: { score, assertions },
+  gameInfo: { score },
 }) => ({
   gravatarEmail,
   name,
   score,
-  assertions,
 });
 
-Header.propTypes = {
+HeaderFback.propTypes = {
   gravatarEmail: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
-  assertions: PropTypes.number.isRequired,
 };
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps, null)(HeaderFback);
