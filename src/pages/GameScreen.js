@@ -16,6 +16,7 @@ class GameScreen extends React.Component {
     this.state = {
       timer: 30,
       answered: false,
+      qIndex: 0,
     };
 
     this.setTimer = this.setTimer.bind(this);
@@ -23,6 +24,8 @@ class GameScreen extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.score = this.score.bind(this);
     this.setLocalStorage = this.setLocalStorage.bind(this);
+    this.navQuest = this.navQuest.bind(this);
+    this.resetBtn = this.resetBtn.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +37,10 @@ class GameScreen extends React.Component {
     // const { score } = this.props;
     this.checkUpdate();
     this.setLocalStorage();
+  }
+
+  componentWillUnmount() {
+    this.resetBtn();
   }
 
   setTimer() {
@@ -67,13 +74,31 @@ class GameScreen extends React.Component {
     }
   }
 
+  resetBtn() {
+    document.querySelectorAll('.btn').forEach((btn) => { btn.style.border = ''; });
+  }
+
+  navQuest() {
+    const quest = 4;
+    const { history } = this.props;
+    const { qIndex } = this.state;
+
+    if (qIndex === quest) {
+      history.push('/feedback');
+    }
+    this.setState((prevState) => ({
+      ...prevState,
+      qIndex: prevState.qIndex + 1,
+    }));
+  }
+
   score(timer, difficulty) {
     const { setScoreAction } = this.props;
     setScoreAction(timer, difficulty);
   }
 
   handleClick(event) {
-    const { timer } = this.state;
+    const { timer, qIndex } = this.state;
     const { questions } = this.props;
     if (event.target.name === 'correct') {
       event.target.style.border = '3px solid rgb(6, 240, 15)';
@@ -81,7 +106,7 @@ class GameScreen extends React.Component {
         btn.style.border = '3px solid rgb(255, 0, 0)';
       });
       clearInterval(this.interval);
-      this.score(timer, questions[0].difficulty);
+      this.score(timer, questions[qIndex].difficulty);
     } else if (event.target.name === 'wrong') {
       clearInterval(this.interval);
       document.querySelectorAll('.btn-wrong').forEach((btn) => {
@@ -102,7 +127,7 @@ class GameScreen extends React.Component {
 
   render() {
     const { questions } = this.props;
-    const { timer, answered } = this.state;
+    const { timer, answered, qIndex } = this.state;
     if (questions.length === 0) {
       return <span>Carregando...</span>;
     }
@@ -110,10 +135,10 @@ class GameScreen extends React.Component {
       <div>
         <Header />
         <Timer timerCountdown={ timer } />
-        <h1 data-testid="question-category">{questions[0].category}</h1>
-        <p data-testid="question-text">{questions[0].question}</p>
+        <h1 data-testid="question-category">{questions[qIndex].category}</h1>
+        <p data-testid="question-text">{questions[qIndex].question}</p>
         <BtnCorrect
-          correct={ questions[0].correct_answer }
+          correct={ questions[qIndex].correct_answer }
           disable={ timer === 0 }
           onClick={ this.handleClick }
           name="correct"
@@ -126,7 +151,7 @@ class GameScreen extends React.Component {
           index={ index }
           disable={ timer === 0 }
         />))}
-        {answered && <NextQuestionBtn />}
+        {answered && <NextQuestionBtn feat1={ this.navQuest } reset={ this.resetBtn } />}
       </div>
     );
   }
@@ -140,6 +165,7 @@ GameScreen.propTypes = {
   score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,
   setScoreAction: PropTypes.func.isRequired,
+  history: PropTypes.func.isRequired,
 
 };
 const mapStateToProps = (state) => ({
