@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Results from '../components/Results';
 import HeaderFback from '../components/HeaderFback';
+import BtnRestart from '../components/BtnRestart';
 
 class FeedBack extends Component {
   render() {
@@ -16,6 +18,9 @@ class FeedBack extends Component {
         { assertions < feedBack
           ? <p data-testid="feedback-text">Podia ser melhor...</p>
           : <p data-testid="feedback-text">Mandou bem!</p>}
+        <Link to="/">
+          <BtnRestart />
+        </Link>
       </>
     );
   }
