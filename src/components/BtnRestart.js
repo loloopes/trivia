@@ -7,7 +7,7 @@ export default class BtnRestart extends Component {
         type="button"
         data-testid="btn-play-again"
       >
-        Jogar novamente
+        Jogar Novamente
       </button>
     );
   }

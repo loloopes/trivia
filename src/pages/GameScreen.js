@@ -117,7 +117,7 @@ class GameScreen extends React.Component {
     this.setState({
       answered: true,
     });
-    this.setLocalStorage();
+    // this.setLocalStorage();
   }
 
   renderQuestions() {
@@ -143,7 +143,7 @@ class GameScreen extends React.Component {
           onClick={ this.handleClick }
           name="correct"
         />
-        {questions[0].incorrect_answers.map((answer, index) => (<BtnWrong
+        {questions[qIndex].incorrect_answers.map((answer, index) => (<BtnWrong
           name="wrong"
           onClick={ this.handleClick }
           key={ index }
