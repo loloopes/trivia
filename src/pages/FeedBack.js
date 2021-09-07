@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Results from '../components/Results';
 import HeaderFback from '../components/HeaderFback';
 import BtnRestart from '../components/BtnRestart';
