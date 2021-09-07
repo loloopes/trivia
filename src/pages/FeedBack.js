@@ -21,6 +21,7 @@ class FeedBack extends Component {
         <Link to="/">
           <BtnRestart />
         </Link>
+
       </>
     );
   }
