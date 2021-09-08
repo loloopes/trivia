@@ -1,6 +1,7 @@
 export const GET_TOKEN = 'GET_TOKEN';
 export const GET_QUESTIONS = 'GET_QUESTIONS';
 export const SET_SCORE = 'SET_SCORE';
+export const RESET_SCORE = 'RESET_SCORE';
 
 const getToken = (name, email, token) => ({
   type: GET_TOKEN,
@@ -24,6 +25,10 @@ const getQuestions = (questions) => ({
   payload: {
     questions,
   },
+});
+
+export const resetScore = () => ({
+  type: RESET_SCORE,
 });
 
 export const getQuestionsThunk = (token) => async (dispatch) => {
