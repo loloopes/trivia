@@ -38,7 +38,12 @@ class Ranking extends Component {
             />
           ))}
         <Link to="/">
-          <button type="button" data-testid="btn-go-home">Voltar para o login</button>
+          <button
+            type="button"
+            data-testid="btn-go-home"
+          >
+            Volta para a tela inicial
+          </button>
         </Link>
       </div>
     );
