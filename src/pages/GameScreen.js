@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import md5 from 'crypto-js/md5';
 
 import BtnCorrect from '../components/BtnCorrect';
 import BtnWrong from '../components/BtnWrong';
@@ -34,13 +35,26 @@ class GameScreen extends React.Component {
   }
 
   componentDidUpdate() {
-    // const { score } = this.props;
     this.checkUpdate();
     this.setLocalStorage();
   }
 
   componentWillUnmount() {
+    const { name, score, gravatarEmail } = this.props;
+    const mailToken = md5(gravatarEmail).toString();
+    let playersArray = [];
+    const playerInfo = {
+      name,
+      score,
+      picture: `https://www.gravatar.com/avatar/${mailToken}`,
+    };
+    if (localStorage.getItem('ranking')) {
+      playersArray = JSON.parse(localStorage.getItem('ranking'));
+    }
+    playersArray.push(playerInfo);
+    localStorage.setItem('ranking', JSON.stringify(playersArray));
     this.resetBtn();
+    // Link de referência para armazenar array de ranking no Local Storage: https://pt.stackoverflow.com/questions/329223/armazenar-um-array-de-objetos-em-um-local-storage-com-js
   }
 
   setTimer() {
@@ -54,8 +68,6 @@ class GameScreen extends React.Component {
 
   setLocalStorage() {
     const { score, name, gravatarEmail, assertions } = this.props;
-    // const { player } = this.state;
-    // this.setState({
     const player = {
       player: {
         name,
@@ -76,6 +88,10 @@ class GameScreen extends React.Component {
 
   resetBtn() {
     document.querySelectorAll('.btn').forEach((btn) => { btn.style.border = ''; });
+    this.setState({
+      timer: 30,
+      answered: false,
+    }, () => this.setTimer());
   }
 
   navQuest() {
@@ -117,7 +133,6 @@ class GameScreen extends React.Component {
     this.setState({
       answered: true,
     });
-    // this.setLocalStorage();
   }
 
   renderQuestions() {
@@ -151,7 +166,8 @@ class GameScreen extends React.Component {
           index={ index }
           disable={ timer === 0 }
         />))}
-        {answered && <NextQuestionBtn feat1={ this.navQuest } reset={ this.resetBtn } />}
+        {(answered || timer === 0)
+        && <NextQuestionBtn feat1={ this.navQuest } reset={ this.resetBtn } />}
       </div>
     );
   }

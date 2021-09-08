@@ -2,12 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import Results from '../components/Results';
 import HeaderFback from '../components/HeaderFback';
 import BtnRestart from '../components/BtnRestart';
 import BtnRanking from '../components/BtnRanking';
 
+import { resetScore as resetScoreAction } from '../redux/actions';
+
 class FeedBack extends Component {
+  componentWillUnmount() {
+    const { resetScore } = this.props;
+    resetScore();
+  }
+
   render() {
     const { assertions } = this.props;
     const feedBack = 3;
@@ -32,10 +40,15 @@ class FeedBack extends Component {
 
 FeedBack.propTypes = {
   assertions: PropTypes.number.isRequired,
+  resetScore: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   assertions: state.gameInfo.assertions,
 });
 
-export default connect(mapStateToProps, null)(FeedBack);
+const mapDispatchToProps = (dispatch) => ({
+  resetScore: () => dispatch(resetScoreAction()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FeedBack);
