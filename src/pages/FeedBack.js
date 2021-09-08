@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Results from '../components/Results';
 import HeaderFback from '../components/HeaderFback';
 import BtnRestart from '../components/BtnRestart';
+import BtnRanking from '../components/BtnRanking';
 
 class FeedBack extends Component {
   render() {
@@ -20,6 +21,9 @@ class FeedBack extends Component {
           : <p data-testid="feedback-text">Mandou bem!</p>}
         <Link to="/">
           <BtnRestart />
+        </Link>
+        <Link to="ranking">
+          <BtnRanking />
         </Link>
       </>
     );
