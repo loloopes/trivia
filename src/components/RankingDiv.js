@@ -10,8 +10,9 @@ class RankingDiv extends React.Component {
         <p data-testid={ `player-name-${index}` }>
           {player.name}
         </p>
+
         <div />
-        <p data-test-id={ `player-score-${index}` }>
+        <p data-testid={ `player-score-${index}` }>
           {player.score}
         </p>
       </section>
