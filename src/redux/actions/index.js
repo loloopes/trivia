@@ -2,6 +2,7 @@ export const GET_TOKEN = 'GET_TOKEN';
 export const GET_QUESTIONS = 'GET_QUESTIONS';
 export const SET_SCORE = 'SET_SCORE';
 export const RESET_SCORE = 'RESET_SCORE';
+export const GET_CATEGORIES = 'GET_CATEGORIES';
 
 const getToken = (name, email, token) => ({
   type: GET_TOKEN,
@@ -31,6 +32,13 @@ export const resetScore = () => ({
   type: RESET_SCORE,
 });
 
+const getCategories = (categories) => ({
+  type: GET_CATEGORIES,
+  payload: {
+    categories,
+  },
+});
+
 export const getQuestionsThunk = (token) => async (dispatch) => {
   const response = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
   const { results } = await response.json();
@@ -42,6 +50,12 @@ const getTokenThunk = (name, email) => async (dispatch) => {
   const data = await response.json();
   dispatch(getToken(name, email, data.token));
   localStorage.setItem('token', data.token);
+};
+
+export const getCategoriesThunk = () => async (dispatch) => {
+  const response = await fetch('https://opentdb.com/api_category.php');
+  const data = await response.json();
+  dispatch(getCategories(data));
 };
 
 export default getTokenThunk;
