@@ -5,15 +5,16 @@ class RankingDiv extends React.Component {
   render() {
     const { player, index } = this.props;
     return (
-      <div>
+      <section className="black">
         <img src={ player.picture } alt="" />
         <p data-testid={ `player-name-${index}` }>
           {player.name}
         </p>
+        <div />
         <p data-test-id={ `player-score-${index}` }>
           {player.score}
         </p>
-      </div>
+      </section>
     );
   }
 }

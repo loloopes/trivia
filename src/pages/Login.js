@@ -33,9 +33,10 @@ class Login extends React.Component {
     const { name, email } = this.state;
     return (
       <div>
-        <label htmlFor="input-player-name">
+        <label htmlFor="input-player-name" className="display-container">
           Name:
           <input
+            className="login form-control white"
             type="text"
             name="name"
             value={ name }
@@ -43,9 +44,10 @@ class Login extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
-        <label htmlFor="input-player-name">
+        <label htmlFor="input-player-name" className="display-container">
           Email:
           <input
+            className="login form-control white "
             type="text"
             name="email"
             value={ email }
@@ -65,26 +67,33 @@ class Login extends React.Component {
     }
     return (
       <main>
-        <form action="">
+        <form action="" className="display-container black">
           {this.renderInputs()}
-          <Link to="/gameplay">
-            <button
-              type="button"
-              data-testid="btn-play"
-              disabled={ handleButton }
-              onClick={ this.handleClick }
-            >
-              Jogar
-            </button>
-          </Link>
-          <Link to="/settings">
-            <button
-              type="button"
-              data-testid="btn-settings"
-            >
-              Configurações
-            </button>
-          </Link>
+          <div>
+            <Link to="/gameplay">
+              <button
+                className="buttonLogin btn btn-primary display-container"
+                type="button"
+                data-testid="btn-play"
+                disabled={ handleButton }
+                onClick={ this.handleClick }
+              >
+                Jogar
+              </button>
+            </Link>
+
+            <Link to="/settings">
+              <button
+                className="btn submit-button btn-primary display-container"
+                type="button"
+                data-testid="btn-settings"
+              >
+                Configurações
+              </button>
+            </Link>
+
+          </div>
+
         </form>
       </main>
     );

@@ -147,12 +147,13 @@ class GameScreen extends React.Component {
       return <span>Carregando...</span>;
     }
     return (
-      <div>
+      <div className="black white">
         <Header />
         <Timer timerCountdown={ timer } />
         <h1 data-testid="question-category">{questions[qIndex].category}</h1>
         <p data-testid="question-text">{questions[qIndex].question}</p>
         <BtnCorrect
+          className="white"
           correct={ questions[qIndex].correct_answer }
           disable={ timer === 0 }
           onClick={ this.handleClick }

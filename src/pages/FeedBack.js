@@ -20,7 +20,7 @@ class FeedBack extends Component {
     const { assertions } = this.props;
     const feedBack = 3;
     return (
-      <>
+      <div className="black">
         <HeaderFback />
         <Results />
         <p data-testid="feedback-text"> FeedbackScreen</p>
@@ -33,7 +33,7 @@ class FeedBack extends Component {
         <Link to="ranking">
           <BtnRanking />
         </Link>
-      </>
+      </div>
     );
   }
 }
