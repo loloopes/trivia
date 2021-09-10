@@ -5,18 +5,16 @@ export default class BtnWrong extends Component {
   render() {
     const { wrong, index, name, onClick, disable } = this.props;
     return (
-      <div>
-        <button
-          className="btn-wrong btn"
-          name={ name }
-          onClick={ onClick }
-          type="button"
-          disabled={ disable }
-          data-testid={ `wrong-answer-${index}` }
-        >
-          {wrong}
-        </button>
-      </div>
+      <button
+        className="btn-wrong btn-primary"
+        name={ name }
+        onClick={ onClick }
+        type="button"
+        disabled={ disable }
+        data-testid={ `wrong-answer-${index}` }
+      >
+        {wrong}
+      </button>
     );
   }
 }

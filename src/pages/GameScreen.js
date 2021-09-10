@@ -152,21 +152,22 @@ class GameScreen extends React.Component {
         <Timer timerCountdown={ timer } />
         <h1 data-testid="question-category">{questions[qIndex].category}</h1>
         <p data-testid="question-text">{questions[qIndex].question}</p>
-        <BtnCorrect
-          className="white"
-          correct={ questions[qIndex].correct_answer }
-          disable={ timer === 0 }
-          onClick={ this.handleClick }
-          name="correct"
-        />
-        {questions[qIndex].incorrect_answers.map((answer, index) => (<BtnWrong
-          name="wrong"
-          onClick={ this.handleClick }
-          key={ index }
-          wrong={ answer }
-          index={ index }
-          disable={ timer === 0 }
-        />))}
+        <div>
+          <BtnCorrect
+            correct={ questions[qIndex].correct_answer }
+            disable={ timer === 0 }
+            onClick={ this.handleClick }
+            name="correct"
+          />
+          {questions[qIndex].incorrect_answers.map((answer, index) => (<BtnWrong
+            name="wrong"
+            onClick={ this.handleClick }
+            key={ index }
+            wrong={ answer }
+            index={ index }
+            disable={ timer === 0 }
+          />))}
+        </div>
         {(answered || timer === 0)
         && <NextQuestionBtn feat1={ this.navQuest } reset={ this.resetBtn } />}
       </div>

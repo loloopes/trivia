@@ -5,17 +5,19 @@ class NextQuestionBtn extends React.Component {
   render() {
     const { feat1, reset } = this.props;
     return (
-      <button
-        className="btn submit-button btn-primary"
-        onClick={ () => {
-          feat1();
-          reset();
-        } }
-        type="button"
-        data-testid="btn-next"
-      >
-        Próxima
-      </button>
+      <div className="black2">
+        <button
+          className="btn submit-button btn-primary"
+          onClick={ () => {
+            feat1();
+            reset();
+          } }
+          type="button"
+          data-testid="btn-next"
+        >
+          Próxima
+        </button>
+      </div>
     );
   }
 }
