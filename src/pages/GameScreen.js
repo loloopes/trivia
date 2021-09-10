@@ -136,8 +136,8 @@ class GameScreen extends React.Component {
   }
 
   renderQuestions() {
-    const { token, fetchQuestions } = this.props;
-    fetchQuestions(token);
+    const { category, difficulty, type, token, fetchQuestions } = this.props;
+    fetchQuestions(category, difficulty, type, token);
   }
 
   render() {
@@ -184,8 +184,11 @@ GameScreen.propTypes = {
   assertions: PropTypes.number.isRequired,
   setScoreAction: PropTypes.func.isRequired,
   history: PropTypes.func.isRequired,
-
+  category: PropTypes.string.isRequired,
+  difficulty: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
+
 const mapStateToProps = (state) => ({
   token: state.login.token,
   questions: state.questionsReducer.questions,
@@ -193,11 +196,14 @@ const mapStateToProps = (state) => ({
   name: state.login.name,
   score: state.gameInfo.score,
   assertions: state.gameInfo.assertions,
+  category: state.settings.category,
+  difficulty: state.settings.difficulty,
+  type: state.settings.type,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchQuestions: (token) => {
-    dispatch(getQuestionsThunk(token));
+  fetchQuestions: (category, difficulty, type, token) => {
+    dispatch(getQuestionsThunk(category, difficulty, type, token));
   },
   setScoreAction: (timer, difficulty) => {
     dispatch(setScore(timer, difficulty));
