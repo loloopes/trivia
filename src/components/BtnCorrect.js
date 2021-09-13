@@ -6,7 +6,7 @@ export default class BtnCorrect extends Component {
     const { correct, onClick, name, disable } = this.props;
     return (
       <button
-        className="btn-correct btn-primary"
+        className="btn-correct btn-primary btn"
         onClick={ onClick }
         type="button"
         disabled={ disable }

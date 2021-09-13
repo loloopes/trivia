@@ -7,7 +7,7 @@ class NextQuestionBtn extends React.Component {
     return (
       <div className="black2">
         <button
-          className="btn submit-button btn-primary"
+          className="btn submit-button btn-success"
           onClick={ () => {
             feat1();
             reset();

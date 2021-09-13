@@ -27,18 +27,19 @@ class Ranking extends Component {
   render() {
     const { ranking } = this.state;
     return (
-      <div className="black">
+      <div className="black2">
         <h1 data-testid="ranking-title">Ranking</h1>
-        <div className="display-container">
-
-          { ranking.sort((playerA, playerB) => playerB.score - playerA.score)
-            .map((player, index) => (
-              <RankingDiv
-                key={ index }
-                index={ index }
-                player={ player }
-              />
-            ))}
+        <div className="display-container ranking-info">
+          <div>
+            { ranking.sort((playerA, playerB) => playerB.score - playerA.score)
+              .map((player, index) => (
+                <RankingDiv
+                  key={ index }
+                  index={ index }
+                  player={ player }
+                />
+              ))}
+          </div>
           <Link to="/">
             <button
               className="btn btn-primary"

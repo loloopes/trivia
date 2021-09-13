@@ -67,9 +67,9 @@ class Login extends React.Component {
     }
     return (
       <main>
-        <form action="" className="display-container black">
+        <form action="" className="display-container black forms">
           {this.renderInputs()}
-          <div>
+          <div className="start_btns">
             <Link to="/gameplay">
               <button
                 className="buttonLogin btn btn-primary display-container"

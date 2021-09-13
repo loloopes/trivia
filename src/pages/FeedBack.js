@@ -20,7 +20,7 @@ class FeedBack extends Component {
     const { assertions } = this.props;
     const feedBack = 3;
     return (
-      <div className="black">
+      <div className="black2">
         <HeaderFback />
         <Results />
         <p data-testid="feedback-text"> FeedbackScreen</p>

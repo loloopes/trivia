@@ -6,7 +6,7 @@ export default class BtnWrong extends Component {
     const { wrong, index, name, onClick, disable } = this.props;
     return (
       <button
-        className="btn-wrong btn-primary"
+        className="btn-wrong btn-primary btn"
         name={ name }
         onClick={ onClick }
         type="button"
