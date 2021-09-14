@@ -154,7 +154,7 @@ class GameScreen extends React.Component {
           <p className="shadow-lg p-3 mb-5 bg-body question-text" data-testid="question-text">{questions[qIndex].question}</p>
         </div>
         <div>
-          {questions[qIndex].sorted_answers.map((answer) => {
+          {questions[qIndex].sorted_answers.map((answer, index) => {
             if (questions[qIndex].correct_answer === answer) {
               return (
                 <button
