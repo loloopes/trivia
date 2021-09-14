@@ -5,10 +5,11 @@
 
 body {
   height: 100%;
+  background-color: #282c34;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 20vmin;
   pointer-events: none;
 }
 
@@ -29,11 +30,6 @@ body {
 
 .btn {
   margin: 20px;
-}
-
-.black {
-  background-color: #282c34;
-  /* height: 349px; */
 }
 
 .black2 {

@@ -38,10 +38,15 @@ class SettingsScreen extends React.Component {
     return (
       <div>
         <h1 data-testid="settings-title"> Settings </h1>
-        <form action="">
+        <form action="" className="d-flex justify-content-evenly">
           <label htmlFor="category">
             Selecione a categoria:
-            <select name="category" id="category" onChange={ this.handleChange }>
+            <select
+              name="category"
+              id="category"
+              onChange={ this.handleChange }
+              className="form-select"
+            >
               {categories.map((category) => (
                 <option key={ category.id } value={ category.id }>{category.name}</option>
               ))}
@@ -49,7 +54,12 @@ class SettingsScreen extends React.Component {
           </label>
           <label htmlFor="difficulty">
             Selecione a dificuldade:
-            <select name="difficulty" id="difficulty" onChange={ this.handleChange }>
+            <select
+              name="difficulty"
+              id="difficulty"
+              onChange={ this.handleChange }
+              className="form-select"
+            >
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>
               <option value="hard">Hard</option>
@@ -57,7 +67,12 @@ class SettingsScreen extends React.Component {
           </label>
           <label htmlFor="type">
             Selecione o tipo de respostas:
-            <select name="type" id="type" onChange={ this.handleChange }>
+            <select
+              name="type"
+              id="type"
+              onChange={ this.handleChange }
+              className="form-select"
+            >
               <option value="multiple">Multiple Choice</option>
               <option value="boolean">True or False</option>
             </select>
@@ -66,7 +81,7 @@ class SettingsScreen extends React.Component {
         <br />
         <br />
         <Link to="/">
-          <button type="button">
+          <button type="button" className="buttonLogin btn btn-primary">
             Voltar para o login
           </button>
         </Link>
