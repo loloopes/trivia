@@ -4,6 +4,7 @@ export const SET_SCORE = 'SET_SCORE';
 export const RESET_SCORE = 'RESET_SCORE';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const UPDATE_SETTINGS = 'UPDATE_SETTINGS';
+export const SET_SORT_ANSWERS = 'SET_SORT_ANSWERS';
 
 const getToken = (name, email, token) => ({
   type: GET_TOKEN,
@@ -48,6 +49,27 @@ export const updateSettingsAction = (category, difficulty, type) => ({
     type,
   },
 });
+
+const setSortAnswers = (answers) => ({
+  type: SET_SORT_ANSWERS,
+  payload: {
+    answers,
+  },
+});
+
+export const sortAnswersThunk = () => (dispatch, getState) => {
+  const { questionsReducer: { questions } } = getState();
+  const answers = [questions[0].correct_answer,
+    ...questions[0].incorrect_answers];
+  for (let i = answers.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * i);
+    const temp = answers[i];
+    answers[i] = answers[j];
+    answers[j] = temp;
+  }
+  console.log(answers);
+  dispatch(setSortAnswers(answers));
+};
 
 export const getQuestionsThunk = (category,
   difficulty,

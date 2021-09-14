@@ -9,7 +9,7 @@ import Header from '../components/Header';
 import Timer from '../components/Timer';
 import NextQuestionBtn from '../components/NextQuestionBtn';
 
-import { setScore, getQuestionsThunk } from '../redux/actions';
+import { setScore, getQuestionsThunk, sortAnswersThunk } from '../redux/actions';
 
 class GameScreen extends React.Component {
   constructor() {
@@ -18,6 +18,7 @@ class GameScreen extends React.Component {
       timer: 30,
       answered: false,
       qIndex: 0,
+      answers: [],
     };
 
     this.setTimer = this.setTimer.bind(this);
@@ -135,19 +136,20 @@ class GameScreen extends React.Component {
     });
   }
 
-  renderQuestions() {
+  async renderQuestions() {
     const { category, difficulty, type, token, fetchQuestions } = this.props;
-    fetchQuestions(category, difficulty, type, token);
+    await fetchQuestions(category, difficulty, type, token);
   }
 
   render() {
-    const { questions } = this.props;
+    const { questions, setSortAnswers } = this.props;
     const { timer, answered, qIndex } = this.state;
     if (questions.length === 0) {
       return <span>Carregando...</span>;
     }
     return (
       <div className="black2">
+        {setSortAnswers()}
         <Header />
         <Timer timerCountdown={ timer } />
         <h1 data-testid="question-category">{questions[qIndex].category}</h1>
@@ -210,6 +212,7 @@ const mapDispatchToProps = (dispatch) => ({
   setScoreAction: (timer, difficulty) => {
     dispatch(setScore(timer, difficulty));
   },
+  setSortAnswers: () => dispatch(sortAnswersThunk()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);
