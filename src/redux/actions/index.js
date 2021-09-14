@@ -1,3 +1,5 @@
+import fetchQuestions from '../../services/fetchQuestions';
+
 export const GET_TOKEN = 'GET_TOKEN';
 export const GET_QUESTIONS = 'GET_QUESTIONS';
 export const SET_SCORE = 'SET_SCORE';
@@ -75,15 +77,8 @@ export const getQuestionsThunk = (category,
   difficulty,
   type,
   token) => async (dispatch) => {
-  if (category && difficulty && type) {
-    const response = await fetch(`https://opentdb.com/api.php?amount=5&category=${category}&difficulty=${difficulty}&type=${type}&token=${token}`);
-    const { results } = await response.json();
-    dispatch(getQuestions(results));
-  } else {
-    const response = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
-    const { results } = await response.json();
-    dispatch(getQuestions(results));
-  }
+  const results = await fetchQuestions(category, difficulty, type, token);
+  dispatch(getQuestions(results));
 };
 
 const getTokenThunk = (name, email) => async (dispatch) => {

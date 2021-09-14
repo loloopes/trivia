@@ -1,9 +1,8 @@
-import { RESET_SCORE, SET_SCORE, SET_SORT_ANSWERS } from '../actions';
+import { RESET_SCORE, SET_SCORE } from '../actions';
 
 const INITIAL_STATE = {
   assertions: 0,
   score: 0,
-  answers: [],
 };
 
 const calcScore = (action, state) => {
@@ -35,11 +34,6 @@ const gameplayReducer = (state = INITIAL_STATE, action) => {
       ...state,
       score: 0,
       assertions: 0,
-    };
-  case SET_SORT_ANSWERS:
-    return {
-      ...state,
-      answers: action.payload.answers,
     };
   default:
     return state;

@@ -59,6 +59,7 @@ div label input {
   flex-direction: column;
   font-size: calc(10px + 2vmin);
   justify-content: center;
+  margin: 4% 0;
 }
 
 .App-link {

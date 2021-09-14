@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
 
-import BtnCorrect from '../components/BtnCorrect';
-import BtnWrong from '../components/BtnWrong';
 import Header from '../components/Header';
 import Timer from '../components/Timer';
 import NextQuestionBtn from '../components/NextQuestionBtn';
 
-import { setScore, getQuestionsThunk, sortAnswersThunk } from '../redux/actions';
+import { setScore, getQuestionsThunk } from '../redux/actions';
 
 class GameScreen extends React.Component {
   constructor() {
@@ -142,14 +140,13 @@ class GameScreen extends React.Component {
   }
 
   render() {
-    const { questions, setSortAnswers } = this.props;
+    const { questions } = this.props;
     const { timer, answered, qIndex } = this.state;
     if (questions.length === 0) {
       return <span>Carregando...</span>;
     }
     return (
       <div className="black2">
-        {setSortAnswers()}
         <Header />
         <Timer timerCountdown={ timer } />
         <h1 data-testid="question-category">{questions[qIndex].category}</h1>
@@ -157,20 +154,34 @@ class GameScreen extends React.Component {
           <p className="shadow-lg p-3 mb-5 bg-body question-text" data-testid="question-text">{questions[qIndex].question}</p>
         </div>
         <div>
-          <BtnCorrect
-            correct={ questions[qIndex].correct_answer }
-            disable={ timer === 0 }
-            onClick={ this.handleClick }
-            name="correct"
-          />
-          {questions[qIndex].incorrect_answers.map((answer, index) => (<BtnWrong
-            name="wrong"
-            onClick={ this.handleClick }
-            key={ index }
-            wrong={ answer }
-            index={ index }
-            disable={ timer === 0 }
-          />))}
+          {questions[qIndex].sorted_answers.map((answer) => {
+            if (questions[qIndex].correct_answer === answer) {
+              return (
+                <button
+                  key={ answer }
+                  className="btn-correct btn-primary btn"
+                  type="button"
+                  name="correct"
+                  onClick={ this.handleClick }
+                  disabled={ timer === 0 }
+                >
+                  { answer }
+                </button>
+              );
+            }
+            return (
+              <button
+                className="btn-wrong btn-primary btn"
+                key={ answer }
+                type="button"
+                name="wrong"
+                onClick={ this.handleClick }
+                disabled={ timer === 0 }
+              >
+                {answer}
+              </button>
+            );
+          })}
         </div>
         {(answered || timer === 0)
         && <NextQuestionBtn feat1={ this.navQuest } reset={ this.resetBtn } />}
@@ -187,7 +198,7 @@ GameScreen.propTypes = {
   score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,
   setScoreAction: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
   category: PropTypes.string.isRequired,
   difficulty: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
@@ -212,7 +223,6 @@ const mapDispatchToProps = (dispatch) => ({
   setScoreAction: (timer, difficulty) => {
     dispatch(setScore(timer, difficulty));
   },
-  setSortAnswers: () => dispatch(sortAnswersThunk()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);
